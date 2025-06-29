@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Aprendiz</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #a3f7b5, #57e690);
+            color: white;
+        }
+
+        .btn-degradado:hover {
+            background: linear-gradient(to right, #7de798, #3dd27a);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+<div class="max-w-xl mx-auto p-6 mt-10 bg-white shadow-md rounded-lg border border-green-200">
+    <h1 class="text-3xl text-green-800 font-bold mb-6 text-center">Detalles del Aprendiz</h1>
+
+    <div class="mb-6">
+        <div class="mb-4">
+            <strong class="text-green-900">Nombre:</strong>
+            <span th:text="${aprendiz.name}" class="ml-2">Nombre del aprendiz</span>
+        </div>
+        <div class="mb-4">
+            <strong class="text-green-900">Correo:</strong>
+            <span th:text="${aprendiz.email}" class="ml-2">correo@ejemplo.com</span>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a th:href="@{/admin/aprendices}" class="btn-degradado px-5 py-2 rounded-md transition">
+            Volver a la lista
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

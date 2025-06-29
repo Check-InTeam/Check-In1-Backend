@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Aprendices</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #a3f7b5, #57e690);
+            color: white;
+        }
+
+        .btn-degradado:hover {
+            background: linear-gradient(to right, #7de798, #3dd27a);
+        }
+
+        .thead-degradado {
+            background: linear-gradient(to right, #a3f7b5, #57e690);
+        }
+    </style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+    <h1 class="text-3xl font-bold mb-6 text-center text-green-900">Listado de Aprendices</h1>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${success != null}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert"
+         th:text="${success}"></div>
+
+    <!-- Botón agregar -->
+    <div class="mb-4">
+        <a th:href="@{/admin/aprendices/create}" class="btn-degradado px-4 py-2 rounded-md font-medium transition">
+            + Agregar Aprendiz
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border border-green-200">
+            <thead class="thead-degradado text-white">
+            <tr>
+                <th class="px-4 py-2 border">#</th>
+                <th class="px-4 py-2 border">Nombre</th>
+                <th class="px-4 py-2 border">Correo</th>
+                <th class="px-4 py-2 border">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="aprendiz : ${aprendices}" class="bg-green-50 hover:bg-green-100">
+                <td class="px-4 py-2 border" th:text="${aprendiz.id}">1</td>
+                <td class="px-4 py-2 border" th:text="${aprendiz.name}">Nombre</td>
+                <td class="px-4 py-2 border" th:text="${aprendiz.email}">correo@ejemplo.com</td>
+                <td class="px-4 py-2 border">
+                    <a th:href="@{/admin/aprendices/{id}/edit(id=${aprendiz.id})}"
+                       class="text-blue-600 hover:underline mr-2">Editar</a>
+                    <form th:action="@{/admin/aprendices/{id}(id=${aprendiz.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

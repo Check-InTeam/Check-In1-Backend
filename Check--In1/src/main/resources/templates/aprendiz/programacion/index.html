@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Programación 2025</title>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<div class="max-w-6xl mx-auto bg-white shadow-md rounded-2xl p-8 mt-8 border border-green-300" style="background-color:rgb(232, 255, 238);">
+
+    <h2 class="text-3xl font-bold mb-6 text-center text-green-800">Programación 2025</h2>
+    <hr class="mb-6 border-green-300"/>
+
+    <!-- Filtros -->
+    <form method="GET" th:action="@{/aprendiz/programaciones}" class="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <input type="text" name="nombre_asignatura" placeholder="Nombre de Asignatura"
+               th:value="${param.nombre_asignatura}"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-400"
+               style="background-color: rgb(241, 255, 237);" />
+
+        <input type="text" name="ficha" placeholder="Ficha"
+               th:value="${param.ficha}"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-400"
+               style="background-color: rgb(241, 255, 237);" />
+
+        <input type="text" name="ambiente" placeholder="Ambiente"
+               th:value="${param.ambiente}"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-400"
+               style="background-color: rgb(241, 255, 237);" />
+
+        <div class="flex items-center gap-2">
+            <button type="submit"
+                    class="w-full py-2 rounded font-semibold text-white hover:opacity-90 transition duration-200"
+                    style="background: linear-gradient(to right, rgb(144, 238, 144), rgb(50, 205, 50));">
+                Filtrar
+            </button>
+            <a th:href="@{/aprendiz/programaciones}"
+               class="w-full py-2 rounded font-semibold text-green-800 bg-gray-200 hover:bg-gray-300 text-center transition duration-200">
+                Limpiar
+            </a>
+        </div>
+    </form>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border text-sm shadow-sm rounded-lg overflow-hidden">
+            <thead>
+            <tr class="bg-green-100 text-green-900">
+                <th class="p-3">Asignatura</th>
+                <th class="p-3">Descripción</th>
+                <th class="p-3">Ficha</th>
+                <th class="p-3">Fecha Inicio</th>
+                <th class="p-3">Fecha Fin</th>
+                <th class="p-3">Hora Inicio</th>
+                <th class="p-3">Hora Fin</th>
+                <th class="p-3">Ambiente</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="programa : ${programaciones}" class="bg-white border-b" style="background-color: rgb(241, 255, 237);">
+                <td class="p-3" th:text="${programa.nombreAsignatura}">Nombre</td>
+                <td class="p-3" th:text="${programa.descripcion}">Descripción</td>
+                <td class="p-3" th:text="${programa.ficha}">Ficha</td>
+                <td class="p-3" th:text="${programa.fechaInicio}">Fecha Inicio</td>
+                <td class="p-3" th:text="${programa.fechaFin}">Fecha Fin</td>
+                <td class="p-3" th:text="${programa.horaInicio}">Hora Inicio</td>
+                <td class="p-3" th:text="${programa.horaFin}">Hora Fin</td>
+                <td class="p-3" th:text="${programa.ambiente}">Ambiente</td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(programaciones)}">
+                <td colspan="8" class="text-center py-4 text-gray-600 italic">No hay registros que coincidan.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

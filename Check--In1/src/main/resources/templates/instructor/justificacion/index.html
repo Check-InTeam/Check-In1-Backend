@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Justificaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<div class="max-w-5xl mx-auto bg-white shadow-md p-6 mt-8 rounded-lg" style="background-color: rgb(232, 255, 238);">
+    <h2 class="text-2xl font-bold text-center mb-6 text-green-900">Justificaciones</h2>
+
+    <!-- Formulario de Filtro -->
+    <form method="get" th:action="@{/instructor/justificacion}" class="mb-6">
+        <div class="flex flex-wrap items-end gap-4">
+            <div>
+                <label class="block text-sm font-medium text-green-900 mb-1">Filtrar por Motivo:</label>
+                <select name="motivo"
+                        class="border border-green-300 rounded px-3 py-2 bg-green-50"
+                        style="min-width: 200px;">
+                    <option value="">Todos</option>
+                    <option th:each="motivo : ${motivos}"
+                            th:value="${motivo}"
+                            th:text="${motivo}"
+                            th:selected="${motivo == param.motivo}">
+                    </option>
+                </select>
+            </div>
+            <div class="flex gap-2 mt-5">
+                <button type="submit"
+                        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow">
+                    Filtrar
+                </button>
+                <a th:href="@{/instructor/justificacion}"
+                   class="text-gray-700 hover:underline text-sm mt-2">
+                    Limpiar
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Tabla de Justificaciones -->
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border">
+            <thead>
+            <tr class="bg-green-200 text-green-900">
+                <th class="p-3">Nombre</th>
+                <th class="p-3">Motivo</th>
+                <th class="p-3">Documento</th>
+                <th class="p-3">Fecha de Envío</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="justificacion : ${justificaciones}" class="bg-white border-b hover:bg-green-50">
+                <td class="p-3" th:text="${justificacion.usuario?.name ?: 'N/A'}"></td>
+                <td class="p-3" th:text="${justificacion.motivo}"></td>
+                <td class="p-3">
+                    <span th:if="${justificacion.documento != null}">
+                        <a th:href="@{/documentos/{archivo}(archivo=${justificacion.documento})}" target="_blank"
+                           class="text-blue-600 underline">Ver</a>
+                    </span>
+                    <span th:if="${justificacion.documento == null}">No adjunto</span>
+                </td>
+                <td class="p-3" th:text="${#dates.format(justificacion.createdAt, 'dd/MM/yyyy')}"></td>
+                <td class="p-3 flex gap-3">
+                    <a th:href="@{/instructor/justificacion/{id}(id=${justificacion.id})}"
+                       class="text-blue-600 hover:underline">Ver</a>
+                    <a th:href="@{/instructor/justificacion/{id}/edit(id=${justificacion.id})}"
+                       class="text-yellow-600 hover:underline">Editar</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(justificaciones)}">
+                <td colspan="5" class="p-4 text-center text-gray-600 italic">
+                    No se encontraron justificaciones registradas.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

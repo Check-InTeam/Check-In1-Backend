@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Justificación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<div class="max-w-3xl mx-auto bg-white shadow-md p-6 mt-8 rounded-lg" style="background-color: rgb(232, 255, 238);">
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-800">Editar Justificación</h2>
+
+    <form th:action="@{/instructor/justificacion/{id}/update(id=${justificacion.id})}"
+          method="post"
+          enctype="multipart/form-data"
+          class="space-y-4">
+        <!-- Simular PUT + CSRF -->
+        <input type="hidden" name="_method" value="put"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <!-- Motivo -->
+        <div>
+            <label for="motivo" class="block font-medium text-green-900">Motivo:</label>
+            <textarea id="motivo" name="motivo"
+                      class="w-full border border-green-300 rounded p-3 bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500"
+                      required
+                      th:text="${justificacion.motivo}"></textarea>
+        </div>
+
+        <!-- Documento -->
+        <div>
+            <label class="block font-medium text-green-900">Documento (opcional):</label>
+            <input type="file" name="documento"
+                   class="w-full border border-green-300 p-2 bg-green-50 rounded"/>
+            <div th:if="${justificacion.documento != null}" class="mt-2">
+                <span class="text-sm text-gray-600">Documento actual:</span>
+                <a th:href="@{/documentos/{archivo}(archivo=${justificacion.documento})}" target="_blank"
+                   class="text-blue-700 underline ml-1">Ver archivo</a>
+            </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="pt-4 text-center">
+            <button type="submit"
+                    class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded-md font-semibold shadow">
+                Actualizar Justificación
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

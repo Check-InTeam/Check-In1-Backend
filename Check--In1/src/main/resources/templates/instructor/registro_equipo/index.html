@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Equipos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Mensaje de éxito -->
+<div th:if="${success}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+    <span th:text="${success}"></span>
+</div>
+
+<!-- Contenedor principal -->
+<div class="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6" style="background-color:rgb(232, 255, 238)">
+    <h1 class="text-2xl font-bold mb-6 text-center" style="font-family: Caviar Dreams; font-size: 30px;">Mis Equipos</h1>
+
+    <!-- Botón agregar -->
+    <div class="mb-4 flex justify-start">
+        <a th:href="@{/instructor/registro-equipo/create}"
+           class="text-green-700 hover:bg-blue-800 px-4 py-2 rounded-md"
+           style="background-color:rgb(157, 220, 137); font-family: Caviar Dreams;">
+            Agregar Equipo
+        </a>
+    </div>
+
+    <hr class="my-4 border-gray-300"/>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border">
+            <thead>
+            <tr style="background-color:rgb(199, 255, 183); font-family: Caviar Dreams;">
+                <th class="px-6 py-3">#</th>
+                <th class="px-6 py-3">Tipo de Equipo</th>
+                <th class="px-6 py-3">Nombre Equipo</th>
+                <th class="px-6 py-3">Marca</th>
+                <th class="px-6 py-3">Serial</th>
+                <th class="px-6 py-3">Descripción</th>
+                <th class="px-6 py-3">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="equipo, iterStat : ${equipos}" class="border-b" style="background-color:rgb(217, 255, 226);">
+                <td class="px-6 py-4" th:text="${iterStat.count}"></td>
+                <td class="px-6 py-4" th:text="${equipo.tipoEquipo}"></td>
+                <td class="px-6 py-4" th:text="${equipo.nombreEquipo}"></td>
+                <td class="px-6 py-4" th:text="${equipo.marca}"></td>
+                <td class="px-6 py-4" th:text="${equipo.serial}"></td>
+                <td class="px-6 py-4" th:text="${equipo.descripcion}"></td>
+                <td class="px-6 py-4 flex gap-2">
+                    <a th:href="@{/instructor/registro-equipo/{id}(id=${equipo.id})}" class="text-blue-600 hover:underline">Ver</a>
+                    <a th:href="@{/instructor/registro-equipo/edit/{id}(id=${equipo.id})}" class="text-blue-600 hover:underline">Editar</a>
+                    <form th:action="@{/instructor/registro-equipo/{id}(id=${equipo.id})}" method="post"
+                          onsubmit="return confirm('¿Estás seguro de eliminar este equipo?')">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(equipos)}">
+                <td colspan="7" class="px-6 py-4 text-center">No hay equipos registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

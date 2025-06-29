@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carnets Digitales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<!-- Alerta de éxito -->
+<div th:if="${success}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg max-w-4xl mx-auto mt-6" role="alert">
+    <p th:text="${success}"></p>
+</div>
+
+<!-- Contenedor principal -->
+<div class="max-w-5xl mx-auto shadow-md rounded-lg p-6 mt-6" style="background-color: rgb(232, 255, 238);">
+    <h1 class="text-2xl font-bold mb-3 text-center" style="font-size: 30px;">Carnets Digitales</h1>
+
+    <!-- Botón Agregar -->
+    <div class="mb-4 text-left">
+        <a th:href="@{/instructor/carnet-digital/create}"
+           class="text-green-700 hover:bg-green-800 px-4 py-2 rounded-md font-semibold"
+           style="background-color:rgb(157, 220, 137);">
+            Agregar Datos
+        </a>
+    </div>
+
+    <hr class="my-4 border-gray-300"/>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border">
+            <thead>
+            <tr style="background-color:rgb(199, 255, 183);">
+                <th class="px-6 py-3">#</th>
+                <th class="px-6 py-3">Tipo de Usuario</th>
+                <th class="px-6 py-3">Nombre Completo</th>
+                <th class="px-6 py-3">Ficha</th>
+                <th class="px-6 py-3">Programa</th>
+                <th class="px-6 py-3">Jornada</th>
+                <th class="px-6 py-3">Foto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="carnet, iterStat : ${carnets}" class="bg-white border-b">
+                <td class="px-6 py-4" th:text="${iterStat.count}">1</td>
+                <td class="px-6 py-4" th:text="${carnet.tipoUsuario}">aprendiz</td>
+                <td class="px-6 py-4" th:text="${carnet.nombreCompleto}">Nombre</td>
+                <td class="px-6 py-4" th:text="${carnet.ficha}">Ficha</td>
+                <td class="px-6 py-4" th:text="${carnet.programa}">Programa</td>
+                <td class="px-6 py-4" th:text="${carnet.jornada}">Jornada</td>
+                <td class="px-6 py-4">
+                    <div th:if="${carnet.foto != null}">
+                        <a th:href="@{/uploads/{file}(file=${carnet.foto})}" target="_blank">
+                            <img th:src="@{/uploads/{file}(file=${carnet.foto})}" alt="Carnet" width="60" class="rounded shadow">
+                        </a>
+                    </div>
+                    <div th:if="${carnet.foto == null}">
+                        <span class="text-gray-500 italic">Sin imagen</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(carnets)}">
+                <td colspan="7" class="px-6 py-4 text-center italic text-gray-600">No hay carnets registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

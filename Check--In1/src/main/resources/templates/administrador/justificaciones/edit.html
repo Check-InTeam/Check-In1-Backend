@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Justificación</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #9bfe89, #60d394);
+        }
+    </style>
+</head>
+<body style="background-color: white;">
+
+<div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6 text-green-800">Editar Justificación</h2>
+
+    <form th:action="@{/admin/justificaciones/{id}(id=${justificacion.id})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="mb-4">
+            <label class="block mb-1 font-semibold text-green-900">Motivo:</label>
+            <textarea name="motivo" rows="4" required
+                      class="w-full border border-green-300 rounded-md p-2 focus:ring-green-500 focus:border-green-500"
+                      style="background-color:rgb(232, 255, 238);"
+                      th:text="${justificacion.motivo}"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1 font-semibold text-green-900">Documento (opcional):</label>
+            <input type="file" name="documento"
+                   class="w-full border border-green-300 rounded-md p-2 bg-white">
+            <div th:if="${justificacion.documento}">
+                <p class="mt-2 text-sm text-green-800">Documento actual:
+                    <a th:href="@{/documentos/{file}(file=${justificacion.documento})}" target="_blank"
+                       class="text-blue-600 underline">Ver archivo</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <a th:href="@{/admin/justificaciones}" class="text-sm text-green-800 hover:underline">
+                ← Volver
+            </a>
+            <button type="submit"
+                    class="btn-degradado text-white px-4 py-2 rounded shadow hover:brightness-110 transition duration-150">
+                Actualizar
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

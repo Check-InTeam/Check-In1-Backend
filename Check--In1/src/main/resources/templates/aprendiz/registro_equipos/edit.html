@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Equipo</title>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+        .form-container {
+            background-color: rgb(232, 255, 238);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1 class="text-2xl font-semibold text-center text-green-900 mb-6">Editar Equipo</h1>
+
+    <form th:action="@{/aprendiz/registro-equipos/{id}(id=${equipo.id})}" th:object="${equipo}" method="post">
+        <!-- Simular método PUT -->
+        <input type="hidden" name="_method" value="put"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-green-900">Tipo de Equipo</label>
+            <input type="text" th:field="*{tipoEquipo}"
+                   class="w-full mt-1 rounded border-green-300 shadow-sm py-2 px-3 sm:text-lg focus:ring-green-500 focus:border-green-500"
+                   style="background-color:rgb(223, 250, 230); border-color:rgb(62, 113, 73);"/>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-green-900">Nombre del Equipo</label>
+            <input type="text" th:field="*{nombreEquipo}"
+                   class="w-full mt-1 rounded border-green-300 shadow-sm py-2 px-3 sm:text-lg focus:ring-green-500 focus:border-green-500"
+                   style="background-color:rgb(223, 250, 230); border-color:rgb(62, 113, 73);"/>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-green-900">Marca</label>
+            <input type="text" th:field="*{marca}"
+                   class="w-full mt-1 rounded border-green-300 shadow-sm py-2 px-3 sm:text-lg focus:ring-green-500 focus:border-green-500"
+                   style="background-color:rgb(223, 250, 230); border-color:rgb(62, 113, 73);"/>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-green-900">Serial del Equipo</label>
+            <input type="text" th:field="*{serial}"
+                   class="w-full mt-1 rounded border-green-300 shadow-sm py-2 px-3 sm:text-lg focus:ring-green-500 focus:border-green-500"
+                   style="background-color:rgb(223, 250, 230); border-color:rgb(62, 113, 73);"/>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-green-900">Descripción</label>
+            <input type="text" th:field="*{descripcion}"
+                   class="w-full mt-1 rounded border-green-300 shadow-sm py-2 px-3 sm:text-lg focus:ring-green-500 focus:border-green-500"
+                   style="background-color:rgb(223, 250, 230); border-color:rgb(62, 113, 73);"/>
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 text-lg font-semibold text-white rounded shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600"
+                style="background-color:rgb(62, 113, 73);">
+            Actualizar Equipo
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

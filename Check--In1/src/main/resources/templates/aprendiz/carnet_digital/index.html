@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carnets Digitales</title>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50" style="font-family: 'Caviar Dreams', sans-serif;">
+
+<div class="max-w-5xl mx-auto shadow-md rounded-lg p-6 mt-6" style="background-color: rgb(232, 255, 238);">
+
+    <h1 class="text-3xl font-bold mb-4 text-center text-green-800" style="font-family: 'Caviar Dreams';">
+        Carnets Digitales
+    </h1>
+
+    <div th:if="${success}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+
+    <!-- Botón para agregar -->
+    <div class="mb-4 text-left">
+        <a th:href="@{/aprendiz/carnet_digital/create}"
+           class="px-5 py-2 rounded-md font-semibold text-green-800 hover:text-white transition duration-200"
+           style="background: linear-gradient(to right, rgb(172, 255, 149), rgb(131, 211, 109)); font-family: 'Caviar Dreams';">
+            Agregar Datos
+        </a>
+    </div>
+
+    <hr class="my-4 border-green-300"/>
+
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border">
+            <thead>
+            <tr style="background: linear-gradient(to right, rgb(199, 255, 183), rgb(172, 239, 157)); font-family: Caviar Dreams;">
+                <th class="px-6 py-3">#</th>
+                <th class="px-6 py-3">Tipo de Usuario</th>
+                <th class="px-6 py-3">Nombre Completo</th>
+                <th class="px-6 py-3">Ficha</th>
+                <th class="px-6 py-3">Programa</th>
+                <th class="px-6 py-3">Jornada</th>
+                <th class="px-6 py-3">Foto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="carnet, iterStat : ${carnets}" style="background-color: rgb(241, 255, 237); font-family: Caviar Dreams;">
+                <td class="px-6 py-4" th:text="${iterStat.index + 1}"></td>
+                <td class="px-6 py-4" th:text="${carnet.tipoUsuario}"></td>
+                <td class="px-6 py-4" th:text="${carnet.nombreCompleto}"></td>
+                <td class="px-6 py-4" th:text="${carnet.ficha}"></td>
+                <td class="px-6 py-4" th:text="${carnet.programa}"></td>
+                <td class="px-6 py-4" th:text="${carnet.jornada}"></td>
+                <td class="px-6 py-4">
+                    <div th:if="${carnet.foto != null}">
+                        <a th:href="@{'/uploads/' + ${carnet.foto}}" target="_blank">
+                            <img th:src="@{'/uploads/' + ${carnet.foto}}" alt="Carnet" width="60" class="rounded shadow" />
+                        </a>
+                    </div>
+                    <div th:if="${carnet.foto == null}" class="text-gray-500 italic">Sin imagen</div>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(carnets)}">
+                <td colspan="7" class="px-6 py-4 text-center">No hay carnets registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

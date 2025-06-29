@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carnets Digitales</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #a3f7b5, #57e690);
+            color: white;
+        }
+
+        .btn-degradado:hover {
+            background: linear-gradient(to right, #7de798, #3dd27a);
+        }
+    </style>
+</head>
+<body class="bg-white">
+<div class="max-w-6xl mx-auto shadow-md rounded-lg p-6 mt-6 bg-white">
+    <h1 class="text-2xl font-bold mb-6 text-center" style="font-size: 30px;">Carnets Digitales</h1>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${success}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+
+    <hr class="my-4 border-gray-300"/>
+
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border">
+            <thead>
+            <tr style="background: linear-gradient(to right, #a3f7b5, #57e690); color: white;">
+                <th class="px-4 py-2 border">Nombre</th>
+                <th class="px-4 py-2 border">Tipo</th>
+                <th class="px-4 py-2 border">Ficha</th>
+                <th class="px-4 py-2 border">Programa</th>
+                <th class="px-4 py-2 border">Jornada</th>
+                <th class="px-4 py-2 border">Imagen</th>
+                <th class="px-4 py-2 border">Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="carnet : ${carnets}" class="hover:bg-green-50" style="background-color: #f7fff9;">
+                <td class="px-4 py-2 border" th:text="${carnet.nombreCompleto}"></td>
+                <td class="px-4 py-2 border" th:text="${carnet.tipoUsuario}"></td>
+                <td class="px-4 py-2 border" th:text="${carnet.ficha != null ? carnet.ficha : '-'}"></td>
+                <td class="px-4 py-2 border" th:text="${carnet.programa}"></td>
+                <td class="px-4 py-2 border" th:text="${carnet.jornada}"></td>
+                <td class="px-4 py-2 border text-center">
+                    <a th:if="${carnet.foto != null}" th:href="@{'/uploads/' + ${carnet.foto}}" target="_blank">
+                        <img th:src="@{'/uploads/' + ${carnet.foto}}" width="60"
+                             class="rounded-md mx-auto hover:scale-105 transition-transform">
+                    </a>
+                    <span th:if="${carnet.foto == null}" class="text-gray-500 italic">Sin imagen</span>
+                </td>
+                <td class="px-4 py-2 border text-center">
+                    <a th:href="@{'/admin/carnets_digital/' + ${carnet.id} + '/edit'}"
+                       class="btn-degradado px-3 py-2 rounded-md text-sm inline-block transition">
+                        Adjuntar Imagen
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

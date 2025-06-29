@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Programación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<div class="flex justify-center items-center min-h-screen p-4">
+    <div class="max-w-3xl bg-white shadow-lg rounded-xl p-8 w-full border border-green-300"
+         style="background-color:rgb(232, 255, 238);">
+        <h2 class="text-3xl text-green-800 font-bold mb-6 text-center"
+            th:text="${programacion.nombreAsignatura}">Nombre de la asignatura</h2>
+
+        <div class="space-y-3 text-lg text-gray-700">
+            <p><strong>Descripción:</strong> <span th:text="${programacion.descripcion}"></span></p>
+            <p><strong>Ficha:</strong> <span th:text="${programacion.ficha}"></span></p>
+            <p><strong>Fecha de Inicio:</strong> <span th:text="${programacion.fechaInicio}"></span></p>
+            <p><strong>Fecha de Fin:</strong> <span th:text="${programacion.fechaFin}"></span></p>
+            <p><strong>Hora de Inicio:</strong> <span th:text="${programacion.horaInicio}"></span></p>
+            <p><strong>Hora de Fin:</strong> <span th:text="${programacion.horaFin}"></span></p>
+            <p><strong>Ambiente:</strong> <span th:text="${programacion.ambiente}"></span></p>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a th:href="@{/instructor/programacion}"
+               class="text-green-700 hover:underline">
+                ← Volver a la programación
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Programación</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(232, 255, 238);">
+
+<div class="max-w-2xl mx-auto bg-white p-6 shadow-md rounded mt-10 border border-green-200">
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-800">Editar Programación</h2>
+
+    <form th:action="@{'/admin/programaciones/update/' + ${programacion.id}}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="mb-4">
+            <label for="nombre_asignatura" class="block mb-1 text-green-900">Asignatura</label>
+            <input type="text" id="nombre_asignatura" name="nombreAsignatura"
+                   th:value="${programacion.nombreAsignatura}" required
+                   class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+        </div>
+
+        <div class="mb-4">
+            <label for="descripcion" class="block mb-1 text-green-900">Descripción</label>
+            <textarea id="descripcion" name="descripcion" required
+                      class="w-full border border-green-300 p-2 rounded bg-green-50"
+                      th:text="${programacion.descripcion}"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="ficha" class="block mb-1 text-green-900">Ficha</label>
+            <input type="text" id="ficha" name="ficha"
+                   th:value="${programacion.ficha}" required
+                   class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="fecha_inicio" class="block mb-1 text-green-900">Fecha Inicio</label>
+                <input type="date" id="fecha_inicio" name="fechaInicio"
+                       th:value="${programacion.fechaInicio}" required
+                       class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+            </div>
+            <div>
+                <label for="fecha_fin" class="block mb-1 text-green-900">Fecha Fin</label>
+                <input type="date" id="fecha_fin" name="fechaFin"
+                       th:value="${programacion.fechaFin}" required
+                       class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="hora_inicio" class="block mb-1 text-green-900">Hora Inicio</label>
+                <input type="time" id="hora_inicio" name="horaInicio"
+                       th:value="${programacion.horaInicio}" required
+                       class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+            </div>
+            <div>
+                <label for="hora_fin" class="block mb-1 text-green-900">Hora Fin</label>
+                <input type="time" id="hora_fin" name="horaFin"
+                       th:value="${programacion.horaFin}" required
+                       class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="ambiente" class="block mb-1 text-green-900">Ambiente</label>
+            <input type="text" id="ambiente" name="ambiente"
+                   th:value="${programacion.ambiente}" required
+                   class="w-full border border-green-300 p-2 rounded bg-green-50"/>
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 px-4 text-green-700 font-semibold rounded-md shadow-md hover:bg-green-800 transition duration-200"
+                style="background-color: rgb(165, 255, 189);">
+            Actualizar
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

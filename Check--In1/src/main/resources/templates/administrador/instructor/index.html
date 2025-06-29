@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Instructores</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #9bfe89, #60d394);
+        }
+    </style>
+</head>
+
+<body style="background-color: white;">
+<div class="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+    <h1 class="text-2xl font-bold mb-6 text-center text-green-800" style="font-size: 30px;">Instructores</h1>
+
+    <a th:href="@{/admin/instructores/create}"
+       class="btn-degradado text-white font-semibold px-4 py-2 rounded-md shadow hover:brightness-110 transition duration-150">
+        Agregar un instructor nuevo
+    </a>
+
+    <hr class="my-4 border-gray-300"/>
+
+    <div th:if="${success != null}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+        <span th:text="${success}"></span>
+    </div>
+
+    <form method="get" th:action="@{/admin/instructores}" class="mb-4">
+        <div class="flex items-center gap-2">
+            <label for="email" class="text-gray-700">Filtrar por correo:</label>
+            <select name="email" id="email" class="border border-gray-300 rounded px-3 py-1 w-72">
+                <option value="">-- Todos los correos --</option>
+                <option th:each="usuario : ${emailsDisponibles}"
+                        th:value="${usuario.email}"
+                        th:text="${usuario.id + ' - ' + usuario.email}"
+                        th:selected="${usuario.email == email}">
+                </option>
+            </select>
+
+            <button type="submit"
+                    class="btn-degradado text-white px-3 py-1 rounded shadow hover:brightness-110 transition duration-150">
+                Filtrar
+            </button>
+
+            <a th:if="${email != null}" th:href="@{/admin/instructores}"
+               class="text-sm text-blue-600 hover:underline ml-2">
+                Limpiar filtro
+            </a>
+        </div>
+    </form>
+
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto text-left border border-green-200">
+            <thead>
+            <tr class="bg-green-100 text-green-900">
+                <th class="px-4 py-2 border">#</th>
+                <th class="px-4 py-2 border">Nombre</th>
+                <th class="px-4 py-2 border">Correo</th>
+                <th class="px-4 py-2 border">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" class="hover:bg-green-50 bg-green-50">
+                <td class="px-4 py-2 border" th:text="${user.id}">1</td>
+                <td class="px-4 py-2 border" th:text="${user.name}">Nombre</td>
+                <td class="px-4 py-2 border" th:text="${user.email}">Correo</td>
+                <td class="px-4 py-2 border">
+                    <a th:href="@{/admin/instructores/{id}/edit(id=${user.id})}" class="text-blue-600 hover:underline">Editar</a> |
+                    <form th:action="@{/admin/instructores/{id}(id=${user.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

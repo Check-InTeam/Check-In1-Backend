@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de la Programación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50">
+
+<div class="max-w-3xl mx-auto bg-white shadow-md p-8 mt-10 rounded-lg"
+     style="background-color:rgb(232, 255, 238)">
+    <h2 class="text-3xl font-bold text-center text-green-800 mb-6">Detalle de la Programación</h2>
+
+    <div class="grid grid-cols-1 gap-4 text-sm text-gray-700">
+        <div>
+            <strong>Asignatura:</strong>
+            <p th:text="${programacion.nombreAsignatura}"></p>
+        </div>
+
+        <div>
+            <strong>Descripción:</strong>
+            <p th:text="${programacion.descripcion}"></p>
+        </div>
+
+        <div>
+            <strong>Ficha:</strong>
+            <p th:text="${programacion.ficha}"></p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <strong>Fecha de Inicio:</strong>
+                <p th:text="${programacion.fechaInicio}"></p>
+            </div>
+            <div>
+                <strong>Fecha de Fin:</strong>
+                <p th:text="${programacion.fechaFin}"></p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <strong>Hora de Inicio:</strong>
+                <p th:text="${programacion.horaInicio}"></p>
+            </div>
+            <div>
+                <strong>Hora de Fin:</strong>
+                <p th:text="${programacion.horaFin}"></p>
+            </div>
+        </div>
+
+        <div>
+            <strong>Ambiente:</strong>
+            <p th:text="${programacion.ambiente}"></p>
+        </div>
+    </div>
+
+    <div class="mt-6 text-center">
+        <a th:href="@{/instructor/programacion}" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md"
+           style="font-family: Caviar Dreams;">
+            ← Volver al listado
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

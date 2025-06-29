@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Programación</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        .degradado-verde {
+            background: linear-gradient(to right, #a8f0c6, #5cd68d);
+        }
+
+        .degradado-verde-hover:hover {
+            background: linear-gradient(to right, #85e7b1, #45cc7f);
+        }
+    </style>
+</head>
+<body style="background-color: rgb(229, 255, 222); font-family: Caviar Dreams;">
+
+<div class="max-w-2xl mx-auto bg-white p-6 shadow-md rounded-2xl mt-10 text-center">
+    <!-- Encabezado con degradado -->
+    <h2 class="text-3xl font-bold mb-6 text-white rounded py-3 degradado-verde">Detalle de Programación</h2>
+
+    <div class="mb-3 text-lg">
+        <strong>Asignatura:</strong>
+        <span th:text="${programacion.nombreAsignatura}"></span>
+    </div>
+
+    <div class="mb-3 text-lg">
+        <strong>Descripción:</strong>
+        <span th:text="${programacion.descripcion}"></span>
+    </div>
+
+    <div class="mb-3 text-lg">
+        <strong>Ficha:</strong>
+        <span th:text="${programacion.ficha}"></span>
+    </div>
+
+    <div class="mb-3 text-lg">
+        <strong>Fecha:</strong>
+        <span th:text="${programacion.fechaInicio}"></span>
+        a
+        <span th:text="${programacion.fechaFin}"></span>
+    </div>
+
+    <div class="mb-3 text-lg">
+        <strong>Horario:</strong>
+        <span th:text="${programacion.horaInicio}"></span>
+        -
+        <span th:text="${programacion.horaFin}"></span>
+    </div>
+
+    <div class="mb-3 text-lg">
+        <strong>Ambiente:</strong>
+        <span th:text="${programacion.ambiente}"></span>
+    </div>
+
+    <a th:href="@{/admin/programaciones}"
+       class="mt-6 inline-block text-white font-semibold px-5 py-2 rounded-md degradado-verde degradado-verde-hover transition-all duration-200">
+        ← Volver
+    </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Carnet Digital</title>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-green-50 flex items-center justify-center">
+
+<div class="w-full max-w-2xl p-8 bg-white rounded-xl shadow-md border border-green-300"
+     style="background-color: rgb(232, 255, 238); font-size: 15px;">
+    <h1 class="text-3xl text-center mb-6 text-green-800" style="font-size: 26px;">Solicitar Carnet Digital</h1>
+    <hr class="mb-6 border-green-300" />
+
+    <form th:action="@{/instructor/carnet-digital}" method="post" th:object="${carnet}">
+        <!-- Tipo de usuario -->
+        <div class="mb-4">
+            <label class="block font-semibold text-green-900">Tipo de Usuario</label>
+            <select th:field="*{tipoUsuario}" required
+                    class="w-full rounded border-gray-300 py-2 px-3 text-base"
+                    style="background-color: rgb(241, 255, 237);">
+                <option value="">Seleccione una opción</option>
+                <option value="aprendiz" th:selected="${carnet.tipoUsuario == 'aprendiz'}">Aprendiz</option>
+                <option value="instructor" th:selected="${carnet.tipoUsuario == 'instructor'}">Instructor</option>
+            </select>
+            <small th:if="${#fields.hasErrors('tipoUsuario')}" class="text-red-600" th:errors="*{tipoUsuario}"></small>
+        </div>
+
+        <!-- Nombre completo -->
+        <div class="mb-4">
+            <label class="block font-semibold text-green-900">Nombre completo</label>
+            <input type="text" th:field="*{nombreCompleto}"
+                   class="w-full rounded border-gray-300 py-2 px-3 text-base"
+                   style="background-color: rgb(241, 255, 237);" required />
+            <small th:if="${#fields.hasErrors('nombreCompleto')}" class="text-red-600" th:errors="*{nombreCompleto}"></small>
+        </div>
+
+        <!-- Ficha -->
+        <div class="mb-4">
+            <label class="block font-semibold text-green-900">Ficha</label>
+            <input type="text" th:field="*{ficha}"
+                   class="w-full rounded border-gray-300 py-2 px-3 text-base"
+                   style="background-color: rgb(241, 255, 237);" />
+            <small th:if="${#fields.hasErrors('ficha')}" class="text-red-600" th:errors="*{ficha}"></small>
+        </div>
+
+        <!-- Programa -->
+        <div class="mb-4">
+            <label class="block font-semibold text-green-900">Programa de formación</label>
+            <input type="text" th:field="*{programa}"
+                   class="w-full rounded border-gray-300 py-2 px-3 text-base"
+                   style="background-color: rgb(241, 255, 237);" required />
+            <small th:if="${#fields.hasErrors('programa')}" class="text-red-600" th:errors="*{programa}"></small>
+        </div>
+
+        <!-- Jornada -->
+        <div class="mb-6">
+            <label class="block font-semibold text-green-900">Jornada</label>
+            <input type="text" th:field="*{jornada}"
+                   class="w-full rounded border-gray-300 py-2 px-3 text-base"
+                   style="background-color: rgb(241, 255, 237);" required />
+            <small th:if="${#fields.hasErrors('jornada')}" class="text-red-600" th:errors="*{jornada}"></small>
+        </div>
+
+        <!-- Botón -->
+        <button type="submit"
+                class="w-full py-2 rounded-lg font-semibold text-green-800 hover:text-white hover:bg-green-500 transition"
+                style="background-color:rgb(183, 255, 155); font-size: 15px;">
+            Enviar Solicitud
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

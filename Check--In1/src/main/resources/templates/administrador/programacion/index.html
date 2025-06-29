@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Programación 2025</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+        .degradado-verde {
+            background: linear-gradient(to right, #a8f0c6, #5cd68d);
+        }
+        .degradado-verde-hover:hover {
+            background: linear-gradient(to right, #85e7b1, #45cc7f);
+        }
+    </style>
+</head>
+<body style="background-color: rgb(232, 255, 238);">
+<div class="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
+    <!-- Barra superior -->
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-900 degradado-verde py-3 rounded">Programación 2025</h2>
+
+    <!-- Botón de crear -->
+    <a th:href="@{/admin/programaciones/create}"
+       class="text-white font-semibold px-4 py-2 rounded-md degradado-verde degradado-verde-hover mb-4 inline-block transition">
+        Crear Nueva Programación
+    </a>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${success}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
+        <span th:text="${success}"></span>
+    </div>
+
+    <!-- Tabla -->
+    <table class="w-full table-auto text-left border">
+        <thead>
+        <tr class="degradado-verde text-green-900">
+            <th class="p-2">Asignatura</th>
+            <th class="p-2">Descripción</th>
+            <th class="p-2">Ficha</th>
+            <th class="p-2">Fecha Inicio</th>
+            <th class="p-2">Fecha Fin</th>
+            <th class="p-2">Hora Inicio</th>
+            <th class="p-2">Hora Fin</th>
+            <th class="p-2">Ambiente</th>
+            <th class="p-2">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="programacion : ${programaciones}" class="bg-green-50 hover:bg-green-100">
+            <td class="p-2" th:text="${programacion.nombreAsignatura}"></td>
+            <td class="p-2" th:text="${programacion.descripcion}"></td>
+            <td class="p-2" th:text="${programacion.ficha}"></td>
+            <td class="p-2" th:text="${programacion.fechaInicio}"></td>
+            <td class="p-2" th:text="${programacion.fechaFin}"></td>
+            <td class="p-2" th:text="${programacion.horaInicio}"></td>
+            <td class="p-2" th:text="${programacion.horaFin}"></td>
+            <td class="p-2" th:text="${programacion.ambiente}"></td>
+            <td class="p-2 flex gap-2">
+                <a th:href="@{'/admin/programaciones/show/' + ${programacion.id}}" class="text-blue-600 hover:underline">Ver</a>
+                <a th:href="@{'/admin/programaciones/edit/' + ${programacion.id}}" class="text-yellow-600 hover:underline">Editar</a>
+                <form th:action="@{'/admin/programaciones/delete/' + ${programacion.id}}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('¿Deseas eliminar esta programación?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

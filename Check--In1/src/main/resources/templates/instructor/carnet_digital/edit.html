@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Solicitud de Carnet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-green-50 flex justify-center items-center">
+
+<div class="shadow-lg p-6 rounded-xl w-full max-w-lg border border-green-300"
+     style="background-color: #e8ffee;">
+    <h2 class="text-center mb-6 text-green-700 text-3xl">Editar Solicitud de Carnet</h2>
+
+    <div th:if="${success}" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded">
+        <p th:text="${success}"></p>
+    </div>
+
+    <form th:action="@{/instructor/carnet-digital/{id}(id=${carnet.id})}" method="post" th:object="${carnet}">
+        <!-- Simular PUT -->
+        <input type="hidden" name="_method" value="put"/>
+
+        <!-- Tipo de usuario oculto -->
+        <input type="hidden" th:field="*{tipoUsuario}" />
+
+        <!-- Nombre completo -->
+        <div class="mb-4">
+            <label class="block font-medium text-green-900">Nombre completo</label>
+            <input type="text" th:field="*{nombreCompleto}" required
+                   class="mt-1 w-full rounded border-gray-300 shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500"
+                   style="background-color: rgb(241, 255, 237);" />
+            <small th:if="${#fields.hasErrors('nombreCompleto')}" class="text-red-600" th:errors="*{nombreCompleto}"></small>
+        </div>
+
+        <!-- Ficha -->
+        <div class="mb-4">
+            <label class="block font-medium text-green-900">Ficha</label>
+            <input type="text" th:field="*{ficha}"
+                   class="mt-1 w-full rounded border-gray-300 shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500"
+                   style="background-color: rgb(241, 255, 237);" />
+            <small th:if="${#fields.hasErrors('ficha')}" class="text-red-600" th:errors="*{ficha}"></small>
+        </div>
+
+        <!-- Programa -->
+        <div class="mb-4">
+            <label class="block font-medium text-green-900">Programa de formación</label>
+            <input type="text" th:field="*{programa}" required
+                   class="mt-1 w-full rounded border-gray-300 shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500"
+                   style="background-color: rgb(241, 255, 237);" />
+            <small th:if="${#fields.hasErrors('programa')}" class="text-red-600" th:errors="*{programa}"></small>
+        </div>
+
+        <!-- Jornada -->
+        <div class="mb-6">
+            <label class="block font-medium text-green-900">Jornada</label>
+            <input type="text" th:field="*{jornada}" required
+                   class="mt-1 w-full rounded border-gray-300 shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500"
+                   style="background-color: rgb(241, 255, 237);" />
+            <small th:if="${#fields.hasErrors('jornada')}" class="text-red-600" th:errors="*{jornada}"></small>
+        </div>
+
+        <!-- Botón -->
+        <button type="submit"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Actualizar
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

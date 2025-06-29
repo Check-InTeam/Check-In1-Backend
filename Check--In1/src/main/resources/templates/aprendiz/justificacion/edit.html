@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Justificación</title>
+    <link href="https://fonts.cdnfonts.com/css/caviar-dreams" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 min-h-screen flex items-center justify-center" style="font-family: 'Caviar Dreams', sans-serif;">
+
+<div class="w-full max-w-2xl bg-white shadow-md p-8 rounded-xl border border-green-300" style="background-color: rgb(232, 255, 238);">
+    <h2 class="text-3xl font-bold text-center text-green-800 mb-6">Editar Justificación</h2>
+    <hr class="mb-6 border-green-300"/>
+
+    <form th:action="@{/aprendiz/justificacion/{id}(id=${justificacion.id})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <!-- Motivo -->
+        <div class="mb-5">
+            <label class="block text-sm font-semibold text-green-900 mb-1">Motivo</label>
+            <textarea name="motivo"
+                      class="w-full rounded-md border border-green-300 p-3"
+                      style="background-color: rgb(241, 255, 237);" required
+                      th:text="${justificacion.motivo}"></textarea>
+        </div>
+
+        <!-- Documento -->
+        <div class="mb-6">
+            <label class="block text-sm font-semibold text-green-900 mb-1">Documento (opcional)</label>
+            <input type="file"
+                   name="documento"
+                   class="w-full rounded-md border border-green-300 p-2"
+                   style="background-color: rgb(241, 255, 237);" />
+
+            <div th:if="${justificacion.documento != null}" class="mt-2 text-sm">
+                Documento actual:
+                <a th:href="@{/documentos/{filename}(filename=${justificacion.documento})}"
+                   class="text-blue-600 underline hover:text-blue-800" target="_blank">Ver archivo</a>
+            </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="text-center">
+            <button type="submit"
+                    class="w-full py-2 rounded-lg font-semibold text-green-700 hover:text-white transition duration-200"
+                    style="background: linear-gradient(to right, rgb(172, 255, 149), rgb(131, 211, 109));">
+                Actualizar Justificación
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

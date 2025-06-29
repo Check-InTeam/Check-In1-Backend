@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Aprendiz</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caviar-dreams');
+        * {
+            font-family: 'Caviar Dreams', sans-serif;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .btn-degradado {
+            background: linear-gradient(to right, #a3f7b5, #57e690);
+        }
+
+        .btn-degradado:hover {
+            background: linear-gradient(to right, #7de798, #3dd27a);
+        }
+    </style>
+</head>
+<body>
+
+<div class="max-w-md mx-auto shadow-md rounded-lg p-6 mt-10 bg-white border border-green-200">
+    <h2 class="text-2xl font-bold mb-6 text-center text-green-800">Editar Aprendiz</h2>
+
+    <form method="post" th:action="@{/admin/aprendices/{id}(id=${aprendiz.id})}">
+        <input type="hidden" name="_method" value="put"/>
+
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-green-900">Nombre</label>
+            <input type="text" id="name" name="name"
+                   th:value="${aprendiz.name}"
+                   class="mt-1 block w-full border border-green-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-green-500 bg-green-50"
+                   required>
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-green-900">Correo Electrónico</label>
+            <input type="email" id="email" name="email"
+                   th:value="${aprendiz.email}"
+                   class="mt-1 block w-full border border-green-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-green-500 bg-green-50"
+                   required>
+        </div>
+
+        <div class="mb-6">
+            <label for="password" class="block text-sm font-medium text-green-900">Contraseña (opcional)</label>
+            <input type="password" id="password" name="password"
+                   class="mt-1 block w-full border border-green-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-green-500 bg-green-50">
+        </div>
+
+        <div class="text-center">
+            <button type="submit"
+                    class="btn-degradado text-white px-5 py-2 rounded-md font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-600">
+                Actualizar
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
